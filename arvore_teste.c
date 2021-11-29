@@ -1,6 +1,7 @@
+
 #include <stdio.h>
 #include <stdlib.h>
-
+//implementação de arvore AVL
 typedef struct no{
     int valor;
     struct no *esquerdo, *direito;
