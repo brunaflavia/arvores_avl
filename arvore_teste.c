@@ -1,18 +1,13 @@
-
 #include <stdio.h>
 #include <stdlib.h>
-//implementação de arvore AVL
+/*Arvóre AVL, com inserção e exclusão. Também imprimi a arvóre*/
+
 typedef struct no{
     int valor;
     struct no *esquerdo, *direito;
     short altura;
 }No;
 
-/*
-    Função que cria um novo nó
-    x -> valor a ser inserido no nó
-    Retorna: o endereço do nó criado
-*/
 No* novoNo(int x){
     No *novo = malloc(sizeof(No));
 
@@ -27,16 +22,10 @@ No* novoNo(int x){
     return novo;
 }
 
-/*
-    Retorna o maior dentre dois valores
-    a, b -> altura de dois nós da árvore
-*/
-short maior(short a, short b){
+short maior(short a, short b){//Retorna o maior
     return (a > b)? a: b;
 }
 
-
-//  Retorna a altura de um nó ou -1 caso ele seja null
 short alturaDoNo(No *no){
     if(no == NULL)
         return -1;
@@ -44,7 +33,6 @@ short alturaDoNo(No *no){
         return no->altura;
 }
 
-//   Calcula e retorna o fator de balanceamento de um nó
 short fatorDeBalanceamento(No *no){
     if(no)
         return (alturaDoNo(no->esquerdo) - alturaDoNo(no->direito));
@@ -52,9 +40,6 @@ short fatorDeBalanceamento(No *no){
         return 0;
 }
 
-// --------- ROTAÇÕES ---------------------------
-
-// função para a rotação à esquerda
 No* rotacaoEsquerda(No *r){
     No *y, *f;
 
@@ -70,7 +55,6 @@ No* rotacaoEsquerda(No *r){
     return y;
 }
 
-// função para a rotação à direita
 No* rotacaoDireita(No *r){
     No *y, *f;
 
@@ -96,10 +80,6 @@ No* rotacaoDireitaEsquerda(No *r){
     return rotacaoEsquerda(r);
 }
 
-/*
-    Função para realizar o balanceamento da árvore após uma inserção ou remoção
-    Recebe o nó que está desbalanceado e retorna a nova raiz após o balanceamento
-*/
 No* balancear(No *raiz){
     short fb = fatorDeBalanceamento(raiz);
 
@@ -122,12 +102,6 @@ No* balancear(No *raiz){
     return raiz;
 }
 
-/*
-    Insere um novo nó na árvore
-    raiz -> raiz da árvore
-    x -> valor a ser inserido
-    Retorno: endereço do novo nó ou nova raiz após o balanceamento
-*/
 No* inserir(No *raiz, int x){
     if(raiz == NULL) // árvore vazia
         return novoNo(x);
@@ -149,11 +123,6 @@ No* inserir(No *raiz, int x){
     return raiz;
 }
 
-/*
-    Função para remover um nó da Árvore binária balanceada
-    Pode ser necessário rebalancear a árvore e a raiz pode ser alterada
-    por isso precisamos retornar a raiz
-*/
 No* remover(No *raiz, int chave) {
     if(raiz == NULL){
         printf("Valor nao encontrado!\n");
